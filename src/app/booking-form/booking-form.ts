@@ -3,6 +3,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators, AbstractContro
 import { NgbCalendar, NgbDate, NgbDateParserFormatter, NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap/datepicker';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap/modal';
 import { Room } from '../room';
+import { LocalStorage } from '../local-storage';
+import { AlertService } from '../alert-service';
 
 // trim input before validate min length
 export const trimmedMinLength = (minLength: number) => {
@@ -27,6 +29,8 @@ export const trimmedMinLength = (minLength: number) => {
 
 export class BookingForm {
   @Input() room!: Room;
+  constructor(private localStore: LocalStorage, private alertService: AlertService) { }
+
   activeModal = inject(NgbActiveModal);
 
   bookingForm = new FormGroup({
@@ -100,5 +104,33 @@ export class BookingForm {
     const toTime = new Date(this.toDate?.year + '-' + this.toDate?.month + '-' + this.toDate?.day).getTime();
     this.numberOfDays.update(() => (toTime - fromTime) / (24 * 60 * 60 * 1000)
     )
+  }
+
+  onSubmit() {
+    const currentBooking = {
+      booker: this.bookingForm.getRawValue().fullName,
+      checkIn: this.bookingForm.getRawValue().checkIn,
+      checkOut: this.bookingForm.getRawValue().checkOut,
+      days: this.numberOfDays(),
+    }
+
+    const localKey = 'bookings';
+
+    // get current bookings
+    const bookings: [object] | null = this.localStore.getData(localKey);
+    // update booking list with current booking
+    if (bookings != null) {
+      bookings.push(currentBooking);
+      this.localStore.storeData(localKey, JSON.stringify(bookings));
+    } else {
+      this.localStore.storeData(localKey, JSON.stringify([currentBooking]));
+    }
+
+    // close modal
+    this.activeModal.close('Close click');
+    this.alertService.sendAlert('Booking successful!');
+    setTimeout(()=>{
+        this.alertService.sendAlert('');
+      },3000)
   }
 }

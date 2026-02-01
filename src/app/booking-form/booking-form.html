@@ -6,7 +6,7 @@
     </div>
     
     <p class="fw-semibold">{{room.roomType}} {{room.roomNumber}} | RM{{room.price}}/night</p>
-    <form [formGroup]="bookingForm" (submit)="activeModal.close('Close click')" class="d-grid gap-0 row-gap-3">
+    <form [formGroup]="bookingForm" (submit)="onSubmit()" class="d-grid gap-0 row-gap-3">
         <!-- full name input -->
         <div>
             <label for="full-name">Full Name</label>
