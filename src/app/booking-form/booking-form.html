@@ -1,1 +1,73 @@
-<p>booking-form works!</p>
+<div class="p-4">
+    <div class="d-flex justify-content-between">
+        <h3>Fill in the details</h3>
+        <button type="button" class="btn-close" aria-label="Close"
+            (click)="activeModal.dismiss('Cross click')"></button>
+    </div>
+    
+    <p class="fw-semibold">{{room.roomType}} {{room.roomNumber}} | RM{{room.price}}/night</p>
+    <form [formGroup]="bookingForm" (submit)="activeModal.close('Close click')" class="d-grid gap-0 row-gap-3">
+        <!-- full name input -->
+        <div>
+            <label for="full-name">Full Name</label>
+            <input class="form-control" type="text" id="full-name" placeholder="Full Name" formControlName="fullName"
+                required>
+            
+            @if(bookingForm.controls.fullName.invalid && (bookingForm.controls.fullName.touched ||
+            bookingForm.controls.fullName.dirty)){
+                @if(bookingForm.controls.fullName.errors?.['required']){
+                <small class="text-danger">Please fill in your full name</small>
+                }
+                @if(bookingForm.controls.fullName.errors?.['minLength']){
+                <div class="text-danger small">Full name must be at least 3 characters</div>
+                }
+            }
+        </div>
+
+        <!-- datepicker input -->
+        <div class="row">
+            <div class="col-lg-6 mb-3 mb-lg-0">
+                <label for="checkIn">Check-in</label>
+                <div class="input-group position-relative">
+                    <div class="dp-hidden position-absolute bottom-0 start-0">
+                        <div class="input-group">
+                            <input name="datepicker" class="form-control" ngbDatepicker #datepicker="ngbDatepicker"
+                                [autoClose]="'outside'" (dateSelect)="onDateSelection($event, datepicker)"
+                                [displayMonths]="2" [minDate]="minDate" [dayTemplate]="t" outsideDays="hidden"
+                                [startDate]="fromDate!" tabindex="-1" />
+                            <ng-template #t let-date let-focused="focused">
+                                <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
+                                    [class.faded]="isHovered(date) || isInside(date)" (mouseenter)="hoveredDate = date"
+                                    (mouseleave)="hoveredDate = null">
+                                    {{ date.day }}
+                                </span>
+                            </ng-template>
+                        </div>
+                    </div>
+                    <input id="checkIn" #dpFromDate class="form-control" placeholder="yyyy-mm-dd" name="dpFromDate"
+                        [value]="formatter.format(fromDate)" formControlName="checkIn"
+                        (input)="handleDateInput(fromDate, dpFromDate.value, 'from')" />
+                    <button class="btn btn-outline-secondary bi bi-calendar3" (click)="datepicker.toggle()"
+                        type="button"></button>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <label for="checkOut">Check-out</label>
+                <div class="input-group">
+                    <input id="checkOut" #dpToDate class="form-control" placeholder="yyyy-mm-dd" name="dpToDate"
+                        formControlName="checkOut" [value]="formatter.format(toDate)"
+                        (input)="handleDateInput(toDate, dpToDate.value, 'to')" />
+                    <button class="btn btn-outline-secondary bi bi-calendar3" (click)="datepicker.toggle()"
+                        type="button"></button>
+                </div>
+            </div>
+        </div>
+        @if(numberOfDays() >= 0){
+        <p class="m-0">{{numberOfDays()}} night{{numberOfDays()>1?'s':''}}</p>
+        }
+        <button type="submit" class="btn btn-primary"
+            [disabled]="!bookingForm.valid || numberOfDays() < 0 || fromDate?.before(minDate) || toDate?.before(minDate)">Confirm
+            booking</button>
+    </form>
+</div>
