@@ -29,11 +29,11 @@
             <div class="col-lg-6 mb-3 mb-lg-0">
                 <label for="checkIn">Check-in</label>
                 <div class="input-group position-relative">
-                    <div class="dp-hidden position-absolute bottom-0 start-0">
+                    <div class="dp-hidden position-absolute bottom-0 end-50">
                         <div class="input-group">
                             <input name="datepicker" class="form-control" ngbDatepicker #datepicker="ngbDatepicker"
                                 [autoClose]="'outside'" (dateSelect)="onDateSelection($event, datepicker)"
-                                [displayMonths]="2" [minDate]="minDate" [dayTemplate]="t" outsideDays="hidden"
+                                [displayMonths]="1" [minDate]="minDate" [dayTemplate]="t" outsideDays="hidden"
                                 [startDate]="fromDate!" tabindex="-1" />
                             <ng-template #t let-date let-focused="focused">
                                 <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
@@ -50,6 +50,12 @@
                     <button class="btn btn-outline-secondary bi bi-calendar3" (click)="datepicker.toggle()"
                         type="button"></button>
                 </div>
+                @if(bookingForm.controls.checkIn.invalid && (bookingForm.controls.checkIn.touched ||
+                bookingForm.controls.checkIn.dirty)){
+                @if(bookingForm.controls.checkIn.errors?.['required']){
+                <small class="text-danger">*Required</small>
+                }
+                }
             </div>
 
             <div class="col-lg-6">
@@ -61,6 +67,12 @@
                     <button class="btn btn-outline-secondary bi bi-calendar3" (click)="datepicker.toggle()"
                         type="button"></button>
                 </div>
+                @if(bookingForm.controls.checkOut.invalid && (bookingForm.controls.checkOut.touched ||
+                bookingForm.controls.checkOut.dirty)){
+                @if(bookingForm.controls.checkOut.errors?.['required']){
+                <small class="text-danger">*Required</small>
+                }
+                }
             </div>
         </div>
         @if(numberOfDays() >= 0){
