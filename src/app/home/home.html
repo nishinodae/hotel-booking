@@ -27,4 +27,6 @@
         </div>
         }
     </div>
+    <ngb-alert *ngIf="alertMessage$ | async as message" type="success" class="sticky-bottom" [dismissible]="false">{{
+        message}}</ngb-alert>
 </div>
