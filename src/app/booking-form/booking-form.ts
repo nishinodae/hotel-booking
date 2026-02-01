@@ -5,6 +5,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap/modal';
 import { Room } from '../room';
 import { LocalStorage } from '../local-storage';
 import { AlertService } from '../alert-service';
+import { Mockapi } from '../mockapi';
 
 // trim input before validate min length
 export const trimmedMinLength = (minLength: number) => {
@@ -29,7 +30,11 @@ export const trimmedMinLength = (minLength: number) => {
 
 export class BookingForm {
   @Input() room!: Room;
-  constructor(private localStore: LocalStorage, private alertService: AlertService) { }
+  constructor(
+    private localStore: LocalStorage,
+    private alertService: AlertService,
+    private roomService: Mockapi
+  ) { }
 
   activeModal = inject(NgbActiveModal);
 
@@ -50,7 +55,7 @@ export class BookingForm {
   numberOfDays = signal(-1);
 
   onDateSelection(date: NgbDate, datepicker: NgbInputDatepicker) {
-    const newDate = date.year + '-' + date.month + '-' + date.day;
+    const newDate = date.day + '/' + date.month + '/' + date.year;
     if (!this.fromDate && !this.toDate) {
       this.fromDate = date;
       this.bookingForm.controls.checkIn.setValue(newDate);
@@ -105,13 +110,18 @@ export class BookingForm {
     this.numberOfDays.update(() => (toTime - fromTime) / (24 * 60 * 60 * 1000)
     )
   }
-
+  
+  loading = false;
   onSubmit() {
+    this.loading = true;
     const currentBooking = {
+      id: crypto.randomUUID(),
+      roomType: this.room.roomType,
+      roomNumber: this.room.roomNumber,
       booker: this.bookingForm.getRawValue().fullName,
       checkIn: this.bookingForm.getRawValue().checkIn,
       checkOut: this.bookingForm.getRawValue().checkOut,
-      days: this.numberOfDays(),
+      paid: this.numberOfDays() * this.room.price,
     }
 
     const localKey = 'bookings';
@@ -126,11 +136,29 @@ export class BookingForm {
       this.localStore.storeData(localKey, JSON.stringify([currentBooking]));
     }
 
-    // close modal
-    this.activeModal.close('Close click');
-    this.alertService.sendAlert('Booking successful!');
-    setTimeout(()=>{
-        this.alertService.sendAlert('');
-      },3000)
+    const updatedRoom = {
+      id: this.room.id,
+      roomNumber: this.room.roomNumber,
+      roomType: this.room.roomType,
+      price: this.room.price,
+      availability: false,
+      image: this.room.image
+    }
+
+    this.roomService.updateRoom(this.room.id, updatedRoom).subscribe(
+      {
+        next: () => {
+          this.loading = false;
+          this.activeModal.close('Close click');
+          this.alertService.sendAlert('Booking successful!');
+        },
+        error: (e) => this.alertService.sendAlert(`Error:${e}`)
+      }
+    );
+
+    setTimeout(() => {
+      this.alertService.sendAlert('');
+    }, 3000);
+
   }
 }

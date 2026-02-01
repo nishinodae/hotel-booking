@@ -4,7 +4,7 @@
         <button type="button" class="btn-close" aria-label="Close"
             (click)="activeModal.dismiss('Cross click')"></button>
     </div>
-    
+
     <p class="fw-semibold">{{room.roomType}} {{room.roomNumber}} | RM{{room.price}}/night</p>
     <form [formGroup]="bookingForm" (submit)="onSubmit()" class="d-grid gap-0 row-gap-3">
         <!-- full name input -->
@@ -12,15 +12,15 @@
             <label for="full-name">Full Name</label>
             <input class="form-control" type="text" id="full-name" placeholder="Full Name" formControlName="fullName"
                 required>
-            
+
             @if(bookingForm.controls.fullName.invalid && (bookingForm.controls.fullName.touched ||
             bookingForm.controls.fullName.dirty)){
-                @if(bookingForm.controls.fullName.errors?.['required']){
-                <small class="text-danger">Please fill in your full name</small>
-                }
-                @if(bookingForm.controls.fullName.errors?.['minLength']){
-                <div class="text-danger small">Full name must be at least 3 characters</div>
-                }
+            @if(bookingForm.controls.fullName.errors?.['required']){
+            <small class="text-danger">Please fill in your full name</small>
+            }
+            @if(bookingForm.controls.fullName.errors?.['minLength']){
+            <div class="text-danger small">Full name must be at least 3 characters</div>
+            }
             }
         </div>
 
@@ -64,10 +64,16 @@
             </div>
         </div>
         @if(numberOfDays() >= 0){
-        <p class="m-0">{{numberOfDays()}} night{{numberOfDays()>1?'s':''}}</p>
+        <p class="m-0">{{numberOfDays()}} night{{numberOfDays()>1?'s':''}}, RM{{numberOfDays()*room.price}}</p>
         }
         <button type="submit" class="btn btn-primary"
             [disabled]="!bookingForm.valid || numberOfDays() < 0 || fromDate?.before(minDate) || toDate?.before(minDate)">Confirm
-            booking</button>
+            booking
+            @if(loading){
+            <div class="spinner-border spinner-border-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            }
+        </button>
     </form>
 </div>
