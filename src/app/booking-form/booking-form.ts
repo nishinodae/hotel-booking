@@ -33,15 +33,15 @@ export class BookingForm {
   constructor(
     private localStore: LocalStorage,
     private alertService: AlertService,
-    private roomService: Mockapi
+    private roomService: Mockapi,
   ) { }
 
   activeModal = inject(NgbActiveModal);
 
   bookingForm = new FormGroup({
     fullName: new FormControl<string>('', { validators: [Validators.required, trimmedMinLength(3)] }),
-    checkIn: new FormControl<string>('', Validators.required),
-    checkOut: new FormControl<string>('', Validators.required),
+    checkIn: new FormControl<string>('', { validators: [Validators.required] }),
+    checkOut: new FormControl<string>('', { validators: [Validators.required] }),
   });
 
   calendar = inject(NgbCalendar);
@@ -110,7 +110,7 @@ export class BookingForm {
     this.numberOfDays.update(() => (toTime - fromTime) / (24 * 60 * 60 * 1000)
     )
   }
-  
+
   loading = false;
   onSubmit() {
     this.loading = true;
@@ -128,13 +128,6 @@ export class BookingForm {
 
     // get current bookings
     const bookings: [object] | null = this.localStore.getData(localKey);
-    // update booking list with current booking
-    if (bookings != null) {
-      bookings.push(currentBooking);
-      this.localStore.storeData(localKey, JSON.stringify(bookings));
-    } else {
-      this.localStore.storeData(localKey, JSON.stringify([currentBooking]));
-    }
 
     const updatedRoom = {
       id: this.room.id,
@@ -148,6 +141,13 @@ export class BookingForm {
     this.roomService.updateRoom(this.room.id, updatedRoom).subscribe(
       {
         next: () => {
+          // update local booking list with current booking
+          if (bookings != null) {
+            bookings.push(currentBooking);
+            this.localStore.storeData(localKey, JSON.stringify(bookings));
+          } else {
+            this.localStore.storeData(localKey, JSON.stringify([currentBooking]));
+          }
           this.loading = false;
           this.activeModal.close('Close click');
           this.alertService.sendAlert('Booking successful!');
