@@ -27,6 +27,8 @@
         </div>
         }
     </div>
-    <ngb-alert *ngIf="alertMessage$ | async as message" [type]="message.toLowerCase().includes('error')? 'danger': 'success'" class="sticky-bottom" [dismissible]="false">{{
+    <ngb-alert *ngIf="alertMessage$ | async as message" 
+    [ngClass]="{'text-bg-danger': message.toLowerCase().includes('error')}"
+    class="sticky-bottom text-bg-success" [dismissible]="false">{{
         message}}</ngb-alert>
 </div>
