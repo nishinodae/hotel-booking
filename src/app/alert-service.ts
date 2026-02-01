@@ -9,7 +9,6 @@ export class AlertService {
 
   sendAlert(message: string) {
     this.alertMessage.next(message);
-    console.log(message);
   }
 
   getAlert(): Observable<string> {
