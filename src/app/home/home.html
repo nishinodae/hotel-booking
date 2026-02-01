@@ -1,22 +1,30 @@
-<div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
-    @for(room of filteredRoom$ | async; track room.id){
-    <room-card-component [room]="room" />
-    }
-    @empty{
-    <div class="card mx-2 my-3" aria-hidden="true">
-        <div class="card-body">
-            <h5 class="card-title placeholder-glow">
-                <span class="placeholder col-6"></span>
-            </h5>
-            <p class="card-text placeholder-glow">
-                <span class="placeholder col-7"></span>
-                <span class="placeholder col-4"></span>
-                <span class="placeholder col-4"></span>
-                <span class="placeholder col-6"></span>
-                <span class="placeholder col-8"></span>
-            </p>
-            <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
-        </div>
+<div>
+    <div class="d-flex gap-2">
+        <button class="btn btn-light" (click)="getAllRoom()">All</button>
+        <button class="btn btn-light" (click)="getFilteredRoom('Single Room')">Single Room</button>
+        <button class="btn btn-light" (click)="getFilteredRoom('Double Room')">Double Room</button>
+        <button class="btn btn-light" (click)="getFilteredRoom('Suite Room')">Suite Room</button>
     </div>
-    }
+    <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+        @for(room of filteredRoom$ | async; track room.id){
+        <room-card-component [room]="room" />
+        }
+        @empty{
+        <div class="card mx-2 my-3" aria-hidden="true">
+            <div class="card-body">
+                <h5 class="card-title placeholder-glow">
+                    <span class="placeholder col-6"></span>
+                </h5>
+                <p class="card-text placeholder-glow">
+                    <span class="placeholder col-7"></span>
+                    <span class="placeholder col-4"></span>
+                    <span class="placeholder col-4"></span>
+                    <span class="placeholder col-6"></span>
+                    <span class="placeholder col-8"></span>
+                </p>
+                <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
+            </div>
+        </div>
+        }
+    </div>
 </div>
