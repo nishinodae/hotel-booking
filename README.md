@@ -1,6 +1,6 @@
 # HotelBooking
 
-A simple Hotel Booking Engine that displays hotel rooms, and allows users to filter rooms, book a room, and view bookings.
+A simple Hotel Booking Engine that displays hotel rooms and allows users to filter rooms, book a room, and view bookings.
 
 ## Dependencies
 
@@ -16,9 +16,10 @@ Install the dependencies:
 This app fetches hotel rooms from the mock API.
 
 1. [Register for a free account](https://mockapi.io/) and get your project token.
-2. Rename `environment.example.ts` file in `src/environments/` to `environment.ts`.
-3. Replace 'your api key' with the project token you get from the mockApi
-4. Replace the content of `environment.development.ts` with your `environment.ts`
+2. Define Resource schema in mockAPI by following the Room interface (can be found in src/app/room.ts)
+3. Rename `environment.example.ts` file in `src/environments/` to `environment.ts`.
+4. Replace 'your api key' with the project token you get from the mockApi
+5. Replace the content of `environment.development.ts` with your `environment.ts`
 
 > To Softinn recruiters, the project token is already provided in the submitted pdf.
 
