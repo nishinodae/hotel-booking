@@ -16,8 +16,9 @@ Install the dependencies:
 This app fetches hotel rooms from the mock API.
 
 1. [Register for a free account](https://mockapi.io/) and get your project token.
-2. Rename `environtment.example.ts` file in `src/environments/` to `environtment.ts`.
+2. Rename `environment.example.ts` file in `src/environments/` to `environment.ts`.
 3. Replace 'your api key' with the project token you get from the mockApi
+4. Replace the content of `environment.development.ts` with your `environment.ts`
 
 > To Softinn recruiters, the project token is already provided in the submitted pdf.
 
@@ -26,8 +27,6 @@ This app fetches hotel rooms from the mock API.
 Start the local development server:
 
     ```bash
-    cd hotel-booking
-    npm install
     ng serve
     ```
 > The app runs on [http://localhost:4200/](http://localhost:4200) by default.
