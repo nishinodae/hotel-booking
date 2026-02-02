@@ -4,7 +4,7 @@ A simple Hotel Booking Engine that displays hotel rooms, and allows users to fil
 
 ## Running the Demo
 
-1. Install dependencies and start the local development server:
+Install dependencies and start the local development server:
 
     ```bash
     cd hotel-booking
@@ -14,7 +14,7 @@ A simple Hotel Booking Engine that displays hotel rooms, and allows users to fil
 
 > The app runs on [http://localhost:4200/](http://localhost:4200) by default.
 
-### mock API Setup
+## mock API Setup
 
 This app fetches hotel rooms from the mock API.
 
