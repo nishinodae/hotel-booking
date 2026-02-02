@@ -19,7 +19,7 @@ This app fetches hotel rooms from the mock API.
 2. Define Resource schema in mockAPI by following the Room interface (can be found in src/app/room.ts)
 3. Rename `environment.example.ts` file in `src/environments/` to `environment.ts`.
 4. Replace 'your api key' with the project token you get from the mockApi
-5. Replace the content of `environment.development.ts` with your `environment.ts`
+5. Replace the content of `environment.development.ts` with your current `environment.ts` content.
 
 > To Softinn recruiters, the project token is already provided in the submitted pdf.
 
