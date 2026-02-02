@@ -1,6 +1,6 @@
 <div class="card position-relative col mt-2" >
     <img [src]="room.image" class="card-img-top" alt="Photo of room {{room.roomNumber}}" height="250">
-    <div class="badge fw-normal position-absolute m-2 end-0" [ngClass]="{'text-bg-success': room.availability, 'text-bg-danger': !room.availability}">{{room.availability? 'Available': 'Reserved'}}</div>
+    <div class="badge fw-normal position-absolute m-2 end-0" [ngClass]="{'text-bg-success': room.availability, 'text-bg-danger': !room.availability}">{{room.availability? 'Available': 'Booked'}}</div>
     <div class="card-body">
         <h5 class="card-title">{{room.roomType}}</h5>
         <div class="card-text mb-2">
