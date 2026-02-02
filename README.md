@@ -23,3 +23,5 @@ This app fetches hotel rooms from the mock API.
 3. Replace 'your api key' with the project token you get from the mockApi
 
 > To Softinn recruiters, the project token is already provided in the submitted pdf.
+
+![Screenshot-hotel-booking](https://github.com/user-attachments/assets/75f6ba87-7c7f-44a6-bd80-ac8ab627c997)
