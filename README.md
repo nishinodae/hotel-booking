@@ -18,7 +18,7 @@ A simple Hotel Booking Engine that displays hotel rooms, and allows users to fil
 
 This app fetches hotel rooms from the mock API.
 
-1. [Register for a free account](https://mockapi.io/) (choose 'I am an individual') and get your project token.
+1. [Register for a free account](https://mockapi.io/) and get your project token.
 2. Rename `environtment.example.ts` file in `src/environments/` to `environtment.ts`.
 3. Replace 'your api key' with the project token you get from the mockApi
 
