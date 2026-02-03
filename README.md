@@ -30,6 +30,19 @@ Start the local development server:
     ```bash
     ng serve
     ```
-> The app runs on [http://localhost:4200/](http://localhost:4200) by default.
+> ..and it will run on [http://localhost:4200/](http://localhost:4200).
 
+## Project Screenshot
 ![Screenshot-hotel-booking](https://github.com/user-attachments/assets/75f6ba87-7c7f-44a6-bd80-ac8ab627c997)
+
+# Design Decisions
+
+- This project was completed as part of a Technical Assessment and intentionally scoped to match the provided requirements.
+
+- Apart from Bootstrap that was used for layout and styling, ng-bootstrap was chosen for the modal, datepicker, and alerts.
+
+- A Bookings page was added to display created bookings. This was not required, but helps visualize the booking data.
+
+- **Future improvements**:
+1. Display clear validation messages for all invalid inputs (e.g., check-in date must be today or later) to guide the user.
+2. Implement date-based availability filtering.
