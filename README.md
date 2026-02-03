@@ -44,5 +44,5 @@ Start the local development server:
 - A Bookings page was added to display created bookings. This was not required, but helps visualize the booking data.
 
 - **Future improvements**:
-1. Display clear validation messages for all invalid inputs (e.g., check-in date must be today or later) to guide the user.
-2. Implement date-based availability filtering.
+  1. Display clear validation messages for all invalid inputs (e.g., check-in date must be today or later) to guide the user.
+  2. Implement date-based availability filtering.
