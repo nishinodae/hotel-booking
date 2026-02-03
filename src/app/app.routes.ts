@@ -11,6 +11,6 @@ export const routes: Routes = [
     {
         path:'bookings',
         component: UserBookings,
-        title: 'HotelBooking.com | My Bookings'
+        title: 'HotelBooking.com | Bookings'
     }
 ];
