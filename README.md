@@ -1,6 +1,6 @@
 # HotelBooking
 
-A simple Hotel Booking Engine that displays hotel rooms and allows users to filter rooms, book a room, and view bookings.
+A simple Hotel Room Booking Engine that displays hotel rooms and allows users to filter rooms, book a room, and view bookings.
 
 ## Dependencies
 
