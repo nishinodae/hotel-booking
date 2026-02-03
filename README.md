@@ -33,9 +33,9 @@ Start the local development server:
 > ..and it will run on [http://localhost:4200/](http://localhost:4200).
 
 ## Project Screenshot
-![Screenshot-hotel-booking](https://github.com/user-attachments/assets/75f6ba87-7c7f-44a6-bd80-ac8ab627c997)
+![Screenshot-hotel-booking](https://github.com/user-attachments/assets/de73976f-32a3-4b62-bbc2-8f31408105ab)
 
-# Design Decisions
+## Design Decisions
 
 - This project was completed as part of a Technical Assessment and intentionally scoped to match the provided requirements.
 
